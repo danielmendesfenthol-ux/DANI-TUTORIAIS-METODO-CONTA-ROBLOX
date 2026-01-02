@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Método Conta Roblox</title>
+
+  <!-- Fonte Moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0a0f1f;
+      --bg-2: #0c1733;
+      --primary: #00baff;
+      --primary-2: #5be7ff;
+      --accent: #7cf0ff;
+      --text: #eaf6ff;
+      --muted: #98b6cc;
+      --card: rgba(12, 23, 51, 0.55);
+      --border: rgba(91, 231, 255, 0.35);
+      --glow: 0 0 18px rgba(0,186,255,0.35), inset 0 0 18px rgba(0,186,255,0.15);
+      --radius: 18px;
+      --maxw: 1040px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(0,186,255,0.15), transparent 55%),
+        radial-gradient(900px 500px at 10% 90%, rgba(91,231,255,0.10), transparent 60%),
+        linear-gradient(180deg, #060a16 0%, var(--bg) 30%, var(--bg-2) 100%);
+      background-attachment: fixed;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,186,255,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,186,255,0.07) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px;
+      mix-blend-mode: screen;
+      opacity: 0.35;
+    }
+
+    header{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 56px 24px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-logo{
+      width: 44px; height: 44px; border-radius: 12px;
+      background:
+        radial-gradient(circle at 30% 30%, var(--primary-2), transparent 60%),
+        linear-gradient(135deg, rgba(0,186,255,0.25), rgba(0,186,255,0.05));
+      box-shadow: var(--glow);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-logo::after{
+      content: "";
+      position: absolute; inset: -2px;
+      background: conic-gradient(from 180deg, transparent 0 40%, rgba(0,186,255,0.15) 40% 60%, transparent 60% 100%);
+      filter: blur(8px);
+      animation: spin 6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .brand-title{
+      font-family: Orbitron, Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      font-size: 1.4rem;
+      text-shadow: 0 0 14px rgba(91,231,255,0.25);
+    }
+
+    .cta{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      color: var(--bg);
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-2) 100%);
+      border: 1px solid rgba(0,186,255,0.6);
+      box-shadow: 0 8px 20px rgba(0,186,255,0.22);
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .cta:hover{ transform: translateY(-1px); box-shadow: 0 12px 28px rgba(0,186,255,0.28); }
+
+    main{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 16px 24px 80px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+    @media (max-width: 960px){ main{ grid-template-columns: 1fr; } }
+
+    .card{
+      background: linear-gradient(180deg, rgba(12,23,51,0.65), rgba(10,15,31,0.55));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--glow);
+      backdrop-filter: blur(10px);
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before{
+      content:"";
+      position: absolute; inset: 0;
+      background: radial-gradient(500px 200px at 15% 0%, rgba(0,186,255,0.12), transparent 60%);
+      pointer-events: none;
+    }
+
+    .section-title{
+      font-family: Orbitron, Inter, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      margin: 4px 0 16px;
+      text-transform: uppercase;
+    }
+
+    .hero{
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (max-width: 960px){ .hero{ grid-template-columns: 1fr; } }
+
+    .hero-title{
+      font-family: Orbitron, Inter, sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin: 0 0 12px;
+      color: var(--text);
+      text-shadow: 0 0 24px rgba(0,186,255,0.2);
+    }
+    .hero-sub{
+      font-size: 1rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .hero-visual{
+      min-height: 220px;
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 70% 30%, rgba(91,231,255,0.25), transparent 45%),
+        linear-gradient(135deg, rgba(0,186,255,0.15), rgba(0,186,255,0.05));
+      border: 1px solid var(--border);
+      box-shadow: var(--glow);
+      position: relative;
+      overflow: hidden;
+    }
+    .scan-line{
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0,186,255,0.6), transparent);
+      animation: scan 5s linear infinite;
+    }
+    @keyframes scan{
+      0%{ top: 0%; } 100%{ top: 100%; }
+    }
+
+    .content{
+      display: grid; gap: 24px;
+      margin-top: 24px;
+    }
+
+    .text{
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 1rem;
+    }
+    .text strong{ color: var(--accent); }
+
+    .video-frame{
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--glow);
+      background: #061023;
+    }
+    .video-frame iframe{
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .footer{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 24px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(91,231,255,0.15);
+    }
+    @media (max-width: 640px){
+      .footer{ flex-direction: column; align-items: flex-start; }
+    }
+
+    /* Pequenos detalhes de “neon” nos cantos */
+    .corner{
+      position: absolute; width: 14px; height: 14px;
+      border: 2px solid rgba(0,186,255,0.55);
+      filter: drop-shadow(0 0 6px rgba(0,186,255,0.5));
+    }
+    .corner.tl{ top: 10px; left: 10px; border-right: none; border-bottom: none; }
+    .corner.tr{ top: 10px; right: 10px; border-left: none; border-bottom: none; }
+    .corner.bl{ bottom: 10px; left: 10px; border-right: none; border-top: none; }
+    .corner.br{ bottom: 10px; right: 10px; border-left: none; border-top: none; }
+  </style>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <header>
+    <a class="brand" href="#">
+      <div class="brand-logo" aria-hidden="true"></div>
+      <div class="brand-title">DANI TUTORIAIS</div>
+    </a>
+    <a class="cta" href="#video">Assistir vídeo</a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">Tutorial Simples e 100% funcional</h1>
+        <p class="hero-sub">Abaixo irei explicar PASSO A PASSO para conseguir roubar contas do roblox. Irá ter o tutorial por texto, e por vídeo. Vire o celular de lado para ver todo o tutorial!</p>
+      </div>
+      <div class="hero-visual">
+        <span class="scan-line"></span>
+      </div>
+    </section>
+
+    <!-- SEÇÃO DE EXPLICAÇÃO DO TUTORIAL -->
+    <section class="card" id="explicacao">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <h2 class="section-title">Explicação do tutorial</h2>
+      <div class="content">
+        <div class="text">
+          <!-- PERSONALIZE O TEXTO AQUI -->
+          <!-- Dica: você pode usar <strong> para destacar partes importantes. -->
+          <p>
+            Bem-vindo a Explicação do Método. Siga as Instruções sem pular nenhuma etapa abaixo!
+          </p>
+          <p>
+          1. Baixe o navegador Kiwi Browser <strong>https://www.google.com/amp/s/apkpure.com/br/kiwi-browser-fast-quiet/com.kiwibrowser.browser/amp</strong>. No site oficial do Roblox <strong>roblox.com/pt/Login</strong> e <strong>entre na sua conta principal</strong>, método 100% ANTI-BAN e seguro.
+          
+          2. Instale a extensão EditThisCookie <strong>https://chromewebstore.google.com/detail/editthiscookie-v3/ojfebgpkimhlhcblbalbfjblapadhbol</strong> e entre no Perfil da pessoa que você desejar roubar a conta, após isso, clique nos 3 pontinhos no canto superior direito, desça até em baixo e clique em EditThisCookie (V3), vai abrir uma tela e você clica em ROBLOSECURITY, vai abrir uma aba e vai ter uma parte escrito um monte de coisas embaralhadas, aí você copia e manda para mim que faço todo o resto do processo mais complexo.
+          
+          <strong>TUTORIAL EM VIDEO</strong>: https://youtube.com/shorts/oKipt2J2J7U?si=H_GbliQ2RriZMeDu
+          </p>
+  
+        </div>
+      </div>
+      <span class="corner bl"></span><span class="corner br"></span>
+    </section>
+
+    <!-- SEÇÃO DE VÍDEO -->
+    <section class="card" id="video">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <h2 class="section-title">Tutorial em vídeo</h2>
+      <div class="content">
+        <div class="video-frame">
+          <!-- TROQUE O LINK DO VÍDEO AQUI -->
+          <!-- Para YouTube, substitua o src pelo seu link de incorporação (embed). Exemplo: https://www.youtube.com/embed/SEU_ID -->
+          <iframe
+            src="https://youtube.com/video/oKipt2J2J7U?si=H_GbliQ2RriZMeDu"
+            title="Tutorial em vídeo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+      <span class="corner bl"></span><span class="corner br"></span>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© 2026 NeonTutorial — Tema azul futurista</div>
+    <div>Feito com carinho em Campinas, SP</div>
+  </footer>
+</body>
+</html>
